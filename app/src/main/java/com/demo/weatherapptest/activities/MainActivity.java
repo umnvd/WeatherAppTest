@@ -1,17 +1,18 @@
 package com.demo.weatherapptest.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.demo.weatherapptest.R;
+import com.demo.weatherapptest.adapters.WeatherAdapter;
 import com.demo.weatherapptest.data.City;
 import com.demo.weatherapptest.pojo.WeatherResponse;
 import com.demo.weatherapptest.utils.WeatherResponseUtils;
-import com.demo.weatherapptest.utils.YaWeatherFactory;
-import com.demo.weatherapptest.utils.YaWeatherService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,74 +58,26 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private CompositeDisposable disposables;
 
+    private RecyclerView recyclerViewWeathers;
+    private WeatherAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         disposables = new CompositeDisposable();
-
+        recyclerViewWeathers = findViewById(R.id.recyclerViewWeathers);
         progressBar = findViewById(R.id.progressBar);
 
-        YaWeatherFactory yaWeatherFactory = YaWeatherFactory.getInstance();
-        YaWeatherService yaWeatherService = yaWeatherFactory.getYaWeatherService();
+        recyclerViewWeathers.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new WeatherAdapter();
+        recyclerViewWeathers.setAdapter(adapter);
 
-        weathers = new ArrayList<>();
-
-        /*for (City city : russianCities) {
-            double lat = city.getLat();
-            double lon = city.getLon();
-            disposables.add(yaWeatherService.getWeather(lat, lon, 2)
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSubscribe(__ -> progressBar.setVisibility(View.VISIBLE))
-                    .doOnTerminate(() -> progressBar.setVisibility(View.GONE))
-                    .subscribe(
-                            weatherResponse -> {
-                                weathers.add(weatherResponse);
-                                ((TextView) findViewById(R.id.textTest)).append(weatherResponse.getInfo().getTzinfo().getName() + "\n");
-                            },
-                            throwable -> {
-                                Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                    )
-            );
-        }*/
-
-        /*observableWeathers = new Observable<List<WeatherResponse>>() {
-            @Override
-            protected void subscribeActual(Observer<? super List<WeatherResponse>> observer) {
-
-            }
-        };
-
-        disposables.add(Observable.fromIterable(worldCities)
-                .forEach(city -> {
-                    disposables.add(yaWeatherService.getWeather(city.getLat(), city.getLon(), 2)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .doOnSubscribe(__ -> progressBar.setVisibility(View.VISIBLE))
-                            .doOnTerminate(() -> progressBar.setVisibility(View.GONE))
-                            .subscribe(
-                                    weatherResponse -> {
-                                        weatherResponse.getInfo().setCityName(city.getName());
-                                        weathers.add(weatherResponse);
-                                        //((TextView) findViewById(R.id.textTest)).append(weatherResponse.getInfo().getCityName()  + " " + weatherResponse.getFact().getTemp() + "\n");
-                                    },
-                                    throwable -> Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_LONG).show()
-                            )
-                    );
-                })
-        );*/
 
         Single<List<WeatherResponse>> weathersTest = WeatherResponseUtils.getWeatherList(russianCities);
         disposables.add(weathersTest
-                .subscribe(weatherResponses -> {
-                    for (WeatherResponse weatherResponse : weatherResponses) {
-                        ((TextView) findViewById(R.id.textTest)).append(weatherResponse.getInfo().getCityName() + " " + weatherResponse.getFact().getTemp() + "\n");
-                    }
-                    // set responses to adapter
-                })
+                .subscribe(weatherResponses -> adapter.setResponses(weatherResponses))
         );
     }
 

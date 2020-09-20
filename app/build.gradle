@@ -47,5 +47,8 @@ dependencies {
     implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     // GSON body parser
     implementation 'com.google.code.gson:gson:2.8.6'
+    // SVG
+    implementation 'com.squareup.okhttp3:okhttp:4.8.1'
+    implementation 'com.pixplicity.sharp:library:1.1.0'
 
 }
