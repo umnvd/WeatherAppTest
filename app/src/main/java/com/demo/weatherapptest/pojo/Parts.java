@@ -7,69 +7,47 @@ public class Parts {
 
     @SerializedName("night")
     @Expose
-    private Night night;
+    private Part night;
     @SerializedName("morning")
     @Expose
-    private Morning morning;
+    private Part morning;
     @SerializedName("day")
     @Expose
-    private Day day;
+    private Part day;
     @SerializedName("evening")
     @Expose
-    private Evening evening;
-    @SerializedName("day_short")
-    @Expose
-    private DayShort dayShort;
-    @SerializedName("night_short")
-    @Expose
-    private NightShort nightShort;
+    private Part evening;
 
-    public Night getNight() {
+    public Part getNight() {
         return night;
     }
 
-    public void setNight(Night night) {
+    public void setNight(Part night) {
         this.night = night;
     }
 
-    public Morning getMorning() {
+    public Part getMorning() {
         return morning;
     }
 
-    public void setMorning(Morning morning) {
+    public void setMorning(Part morning) {
         this.morning = morning;
     }
 
-    public Day getDay() {
+    public Part getDay() {
         return day;
     }
 
-    public void setDay(Day day) {
+    public void setDay(Part day) {
         this.day = day;
     }
 
-    public Evening getEvening() {
+    public Part getEvening() {
         return evening;
     }
 
-    public void setEvening(Evening evening) {
+    public void setEvening(Part evening) {
         this.evening = evening;
-    }
-
-    public DayShort getDayShort() {
-        return dayShort;
-    }
-
-    public void setDayShort(DayShort dayShort) {
-        this.dayShort = dayShort;
-    }
-
-    public NightShort getNightShort() {
-        return nightShort;
-    }
-
-    public void setNightShort(NightShort nightShort) {
-        this.nightShort = nightShort;
     }
 
 }

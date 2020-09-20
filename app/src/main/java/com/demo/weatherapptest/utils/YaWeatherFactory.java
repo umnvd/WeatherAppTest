@@ -1,16 +1,22 @@
 package com.demo.weatherapptest.utils;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class YaWeatherFactory {
 
+    private static final String BASE_URL = "https://api.weather.yandex.ru/v2/";
+    private static final Object LOCK = new Object();
+
     private static YaWeatherFactory instance;
     private static Retrofit retrofit;
-    private static final Object LOCK = new Object();
 
     private YaWeatherFactory() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.weather.yandex.ru/v2/forecast")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(BASE_URL)
                 .build();
     }
 
@@ -26,5 +32,4 @@ public class YaWeatherFactory {
     public YaWeatherService getYaWeatherService() {
         return retrofit.create(YaWeatherService.class);
     }
-
 }

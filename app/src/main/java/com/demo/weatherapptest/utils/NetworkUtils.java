@@ -1,11 +1,6 @@
 package com.demo.weatherapptest.utils;
 
-import android.content.Context;
 import android.net.Uri;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.loader.content.AsyncTaskLoader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,13 +10,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
-import java.util.concurrent.Callable;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 

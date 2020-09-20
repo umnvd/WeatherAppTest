@@ -19,52 +19,19 @@ public class Fact {
     private String condition;
     @SerializedName("wind_speed")
     @Expose
-    private int windSpeed;
-    @SerializedName("wind_gust")
-    @Expose
-    private double windGust;
+    private double windSpeed;
     @SerializedName("wind_dir")
     @Expose
     private String windDir;
     @SerializedName("pressure_mm")
     @Expose
     private int pressureMm;
-    @SerializedName("pressure_pa")
-    @Expose
-    private int pressurePa;
     @SerializedName("humidity")
     @Expose
     private int humidity;
     @SerializedName("daytime")
     @Expose
     private String daytime;
-    @SerializedName("polar")
-    @Expose
-    private boolean polar;
-    @SerializedName("season")
-    @Expose
-    private String season;
-    @SerializedName("prec_type")
-    @Expose
-    private int precType;
-    @SerializedName("prec_strength")
-    @Expose
-    private double precStrength;
-    @SerializedName("is_thunder")
-    @Expose
-    private boolean isThunder;
-    @SerializedName("cloudness")
-    @Expose
-    private int cloudness;
-    @SerializedName("obs_time")
-    @Expose
-    private int obsTime;
-    @SerializedName("phenom_icon")
-    @Expose
-    private String phenomIcon;
-    @SerializedName("phenom-condition")
-    @Expose
-    private String phenomCondition;
 
     public int getTemp() {
         return temp;
@@ -98,20 +65,12 @@ public class Fact {
         this.condition = condition;
     }
 
-    public int getWindSpeed() {
+    public double getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(int windSpeed) {
+    public void setWindSpeed(double windSpeed) {
         this.windSpeed = windSpeed;
-    }
-
-    public double getWindGust() {
-        return windGust;
-    }
-
-    public void setWindGust(double windGust) {
-        this.windGust = windGust;
     }
 
     public String getWindDir() {
@@ -130,14 +89,6 @@ public class Fact {
         this.pressureMm = pressureMm;
     }
 
-    public int getPressurePa() {
-        return pressurePa;
-    }
-
-    public void setPressurePa(int pressurePa) {
-        this.pressurePa = pressurePa;
-    }
-
     public int getHumidity() {
         return humidity;
     }
@@ -152,78 +103,6 @@ public class Fact {
 
     public void setDaytime(String daytime) {
         this.daytime = daytime;
-    }
-
-    public boolean isPolar() {
-        return polar;
-    }
-
-    public void setPolar(boolean polar) {
-        this.polar = polar;
-    }
-
-    public String getSeason() {
-        return season;
-    }
-
-    public void setSeason(String season) {
-        this.season = season;
-    }
-
-    public int getPrecType() {
-        return precType;
-    }
-
-    public void setPrecType(int precType) {
-        this.precType = precType;
-    }
-
-    public double getPrecStrength() {
-        return precStrength;
-    }
-
-    public void setPrecStrength(double precStrength) {
-        this.precStrength = precStrength;
-    }
-
-    public boolean isIsThunder() {
-        return isThunder;
-    }
-
-    public void setIsThunder(boolean isThunder) {
-        this.isThunder = isThunder;
-    }
-
-    public int getCloudness() {
-        return cloudness;
-    }
-
-    public void setCloudness(int cloudness) {
-        this.cloudness = cloudness;
-    }
-
-    public int getObsTime() {
-        return obsTime;
-    }
-
-    public void setObsTime(int obsTime) {
-        this.obsTime = obsTime;
-    }
-
-    public String getPhenomIcon() {
-        return phenomIcon;
-    }
-
-    public void setPhenomIcon(String phenomIcon) {
-        this.phenomIcon = phenomIcon;
-    }
-
-    public String getPhenomCondition() {
-        return phenomCondition;
-    }
-
-    public void setPhenomCondition(String phenomCondition) {
-        this.phenomCondition = phenomCondition;
     }
 
 }

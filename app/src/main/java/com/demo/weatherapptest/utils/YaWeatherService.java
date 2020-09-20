@@ -1,17 +1,20 @@
 package com.demo.weatherapptest.utils;
 
-import org.json.JSONObject;
+import com.demo.weatherapptest.pojo.WeatherResponse;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Query;
 
 public interface YaWeatherService {
 
-    @Headers("X-Yandex-API-Key: e3131f67-a5d8-4094-a587-0bfe876fb1bc")
-    @GET("forecast?lang=ru-RU&hours=true&extra=true")
-    JSONObject getWeatherJSON(
+    String API_KEY = "e3131f67-a5d8-4094-a587-0bfe876fb1bc";
+
+    @Headers("X-Yandex-API-Key: " + API_KEY)
+    @GET("forecast?")
+    Observable<WeatherResponse> getWeather(
             @Query("lat") double lat,
             @Query("lon") double lon,
             @Query("limit") int days
