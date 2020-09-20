@@ -4,9 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.demo.weatherapptest.R;
 import com.demo.weatherapptest.adapters.WeatherAdapter;
@@ -17,7 +18,6 @@ import com.demo.weatherapptest.utils.WeatherResponseUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private final static List<City> russianCities = new ArrayList<>();
     private final static List<City> worldCities = new ArrayList<>();
 
+    // init cities
     static {
         russianCities.add(new City("Архангельск", 64.539393, 40.516939));
         russianCities.add(new City("Воронеж", 51.661535, 39.200287));
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         russianCities.add(new City("Ульяновск", 54.3107593, 48.3642771));
         russianCities.add(new City("Хабаровск", 48.472584, 135.057732));
     }
-
     static {
         worldCities.add(new City("Вена", 48.2084900, 16.3720800));
         worldCities.add(new City("Киев", 50.4546600, 30.5238000));
@@ -52,11 +52,12 @@ public class MainActivity extends AppCompatActivity {
         worldCities.add(new City("Торонто", 43.7001100, -79.4163000));
     }
 
-    List<WeatherResponse> weathers;
-    Observable<List<WeatherResponse>> observableWeathers;
+
+
+    private Single<List<WeatherResponse>> weatherResponses;
+    private CompositeDisposable disposables;
 
     private ProgressBar progressBar;
-    private CompositeDisposable disposables;
 
     private RecyclerView recyclerViewWeathers;
     private WeatherAdapter adapter;
@@ -75,10 +76,23 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewWeathers.setAdapter(adapter);
 
 
-        Single<List<WeatherResponse>> weathersTest = WeatherResponseUtils.getWeatherList(russianCities);
-        disposables.add(weathersTest
-                .subscribe(weatherResponses -> adapter.setResponses(weatherResponses))
+        weatherResponses = WeatherResponseUtils.loadWeatherList(russianCities);
+        disposables.add(weatherResponses
+                .subscribe(
+                        weatherList -> adapter.setWeathers(weatherList),
+                        throwable -> Toast.makeText(MainActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show()
+                )
         );
+
+        adapter.setOnWeatherClickListener(position -> {
+            WeatherResponse chosenWeather = adapter.getWeathers().get(position);
+            String name = chosenWeather.getInfo().getCityName();
+            double lat = chosenWeather.getInfo().getLat();
+            double lon = chosenWeather.getInfo().getLon();
+            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+            intent.putExtra("city", new City(name, lat, lon));
+            startActivity(intent);
+        });
     }
 
     private void loadData() {

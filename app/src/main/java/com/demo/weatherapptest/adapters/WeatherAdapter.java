@@ -18,11 +18,20 @@ import java.util.List;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherResponseViewHolder> {
 
-    private List<WeatherResponse> responses = new ArrayList<>();
+    private List<WeatherResponse> weathers = new ArrayList<>();
+    private OnWeatherClickListener onWeatherClickListener;
 
-    public void setResponses(List<WeatherResponse> responses) {
-        this.responses = responses;
+    public List<WeatherResponse> getWeathers() {
+        return weathers;
+    }
+
+    public void setWeathers(List<WeatherResponse> weathers) {
+        this.weathers = weathers;
         notifyDataSetChanged();
+    }
+
+    public void setOnWeatherClickListener(OnWeatherClickListener onWeatherClickListener) {
+        this.onWeatherClickListener = onWeatherClickListener;
     }
 
     @NonNull
@@ -34,9 +43,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherR
 
     @Override
     public void onBindViewHolder(@NonNull WeatherResponseViewHolder holder, int position) {
-        WeatherResponse response = responses.get(position);
+        WeatherResponse response = weathers.get(position);
         String cityName = response.getInfo().getCityName();
-        String temp = Integer.toString(response.getFact().getTemp());
+        int tempValue = response.getFact().getTemp();
+        String temp = tempValue < 0 ? "" + tempValue : "+" + tempValue;
         String icon = response.getFact().getIcon();
 
         holder.cityName.setText(cityName);
@@ -46,7 +56,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherR
 
     @Override
     public int getItemCount() {
-        return responses.size();
+        return weathers.size();
     }
 
     public class WeatherResponseViewHolder extends RecyclerView.ViewHolder {
@@ -60,6 +70,15 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherR
             cityName = itemView.findViewById(R.id.cityName);
             cityCurrentTemp = itemView.findViewById(R.id.cityCurrentTemp);
             cityCurrentWeatherIcon = itemView.findViewById(R.id.cityCurrentWeatherIcon);
+            itemView.setOnClickListener(view -> {
+                if (onWeatherClickListener != null) {
+                    onWeatherClickListener.onWeatherClick(getAdapterPosition());
+                }
+            });
         }
+    }
+
+    public interface OnWeatherClickListener {
+        void onWeatherClick(int position);
     }
 }

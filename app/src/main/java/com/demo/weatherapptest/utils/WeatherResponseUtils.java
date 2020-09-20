@@ -15,13 +15,13 @@ public class WeatherResponseUtils {
     private static YaWeatherFactory yaWeatherFactory = YaWeatherFactory.getInstance();
     private static YaWeatherService yaWeatherService = yaWeatherFactory.getYaWeatherService();
 
-    public static Single<List<WeatherResponse>> getWeatherList(List<City> cityList) {
+    public static Single<List<WeatherResponse>> loadWeatherList(List<City> cityList) {
         return Observable.fromIterable(cityList)
                 .flatMap(city -> loadWeather(city))
                 .toList();
     }
 
-    private static Observable<WeatherResponse> loadWeather(City city) {
+    public static Observable<WeatherResponse> loadWeather(City city) {
         return yaWeatherService.getWeather(city.getLat(), city.getLon(), 2)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

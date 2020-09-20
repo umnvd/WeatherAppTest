@@ -1,44 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="70dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="4dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
     app:cardCornerRadius="4dp" >
 
-    <LinearLayout
+    <ImageView
+        android:src="@drawable/night_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="5"
-        android:padding="4dp"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/cityName"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:gravity="center_vertical"
-            android:paddingStart="4dp"
-            android:text="Город" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_centerVertical="true"
+            android:text="Город"
+            android:paddingBottom="4dp"
+            style="@style/WhiteText" />
 
         <TextView
             android:id="@+id/cityCurrentTemp"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="+14" />
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/cityCurrentWeatherIcon"
+            android:layout_marginEnd="16dp"
+            android:layout_centerVertical="true"
+            android:text="+14"
+            android:paddingBottom="4dp"
+            style="@style/WhiteText"
+            android:textSize="36sp" />
 
 
         <ImageView
             android:id="@+id/cityCurrentWeatherIcon"
-            android:layout_width="0dp"
+            android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_weight="1" />
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 
