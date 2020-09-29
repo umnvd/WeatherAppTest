@@ -44,8 +44,13 @@ public class WeatherUtils {
         return (dayTime.equals("d")) ? R.drawable.day_background : R.drawable.night_background;
     }
 
-    private static SimpleDateFormat formatter = new SimpleDateFormat("dd.MM", Locale.getDefault());
+    private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd.MM", Locale.getDefault());
     public static String getFormattedDate(long unixTime) {
-        return formatter.format(new Date(unixTime * 1000L));
+        return dateFormatter.format(new Date(unixTime * 1000L));
+    }
+
+    private static SimpleDateFormat hourFormatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    public static String getFormattedHour(long hourTs) {
+        return hourFormatter.format(new Date(hourTs * 1000L));
     }
 }

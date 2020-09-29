@@ -1,266 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="4dp"
+    android:background="@color/colorGray"
     tools:context=".activities.DetailActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageViewBackground"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/day_background"
-            app:layout_constraintBottom_toTopOf="@+id/guideLineTopHorizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <RelativeLayout
-            android:id="@+id/layoutCurrentWeather"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideLineTopHorizontal"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/textViewName"
-                style="@style/WhiteTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                android:text="Ульяновск" />
+            <include
+                android:id="@+id/layoutCurrentWeather"
+                layout="@layout/current_weather_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textViewCurrentDate"
-                style="@style/WhiteTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="8dp"
-                android:layout_toEndOf="@id/textViewName"
-                android:text="21.09" />
+            <RelativeLayout
+                android:id="@+id/layoutWeatherTomorrow"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutCurrentWeather">
 
-            <TextView
-                android:id="@+id/textViewCurrentTemp"
-                style="@style/WhiteTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="75dp"
-                android:layout_below="@id/textViewName"
-                android:layout_alignParentStart="true"
-                android:layout_marginEnd="8dp"
-                android:text="+14"
-                android:textSize="54sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/textViewTomorrow"
+                    style="@style/TitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="8dp"
+                    android:text="Завтра" />
 
-            <ImageView
-                android:id="@+id/imageViewCurrentWeatherIcon"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_below="@id/textViewName"
-                android:layout_marginEnd="8dp"
-                android:layout_toEndOf="@id/textViewCurrentTemp"
-                android:src="@drawable/weather_icon_test" />
+                <LinearLayout
+                    android:id="@+id/layoutTomorrowParts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewTomorrow"
+                    android:layout_alignParentStart="true"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
 
-            <TextView
-                android:id="@+id/textViewCurrentCondition"
-                style="@style/WhiteRegularText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewName"
-                android:layout_marginBottom="8dp"
-                android:layout_toEndOf="@id/imageViewCurrentWeatherIcon"
-                android:text="Облачно" />
+                    <include
+                        android:id="@+id/layoutWeatherNight"
+                        layout="@layout/day_part_weather_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/textViewCurrentFeels"
-                style="@style/WhiteRegularText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewCurrentCondition"
-                android:layout_toEndOf="@id/imageViewCurrentWeatherIcon"
-                android:text="Ощущается как +7" />
+                    <include
+                        android:id="@+id/layoutWeatherMorning"
+                        layout="@layout/day_part_weather_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/textViewCurrentWind"
-                style="@style/WhiteRegularText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewCurrentTemp"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="8dp"
-                android:text="Ветер 5.4  м/с, направление СЗ" />
+                    <include
+                        android:id="@+id/layoutWeatherDay"
+                        layout="@layout/day_part_weather_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/textViewCurrentHumidity"
-                style="@style/WhiteRegularText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewCurrentWind"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="8dp"
-                android:text="Влажность воздуха 80%" />
+                    <include
+                        android:id="@+id/layoutWeatherEvening"
+                        layout="@layout/day_part_weather_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/textViewCurrentPressure"
-                style="@style/WhiteRegularText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewCurrentHumidity"
-                android:layout_alignParentStart="true"
-                android:text="Давление 751 мм рт. ст." />
+                </LinearLayout>
 
-        </RelativeLayout>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideLineTopHorizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.4" />
-
-        <RelativeLayout
-            android:id="@+id/layoutWeatherTomorrow"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideLineBotHorizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideLineTopHorizontal">
-
-            <TextView
-                android:id="@+id/textViewTomorrow"
-                style="@style/TitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="8dp"
-                android:text="Завтра" />
+            </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/layoutTomorrowParts"
+                android:id="@+id/layoutWeatherForecast"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewTomorrow"
-                android:layout_alignParentStart="true"
-                android:orientation="horizontal"
-                android:weightSum="4">
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutWeatherTomorrow">
+
+                <TextView
+                    android:id="@+id/textViewForecast"
+                    style="@style/TitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Прогноз" />
 
                 <include
-                    android:id="@+id/layoutWeatherNight"
-                    layout="@layout/layout_day_part_weather"
-                    android:layout_width="0dp"
+                    android:id="@+id/layoutWeatherForecast1"
+                    layout="@layout/short_weather_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
                 <include
-                    android:id="@+id/layoutWeatherMorning"
-                    layout="@layout/layout_day_part_weather"
-                    android:layout_width="0dp"
+                    android:id="@+id/layoutWeatherForecast2"
+                    layout="@layout/short_weather_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
                 <include
-                    android:id="@+id/layoutWeatherDay"
-                    layout="@layout/layout_day_part_weather"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <include
-                    android:id="@+id/layoutWeatherEvening"
-                    layout="@layout/layout_day_part_weather"
-                    android:layout_width="0dp"
+                    android:id="@+id/layoutWeatherForecast3"
+                    layout="@layout/short_weather_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideLineBotHorizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.7" />
+    </ScrollView>
 
-        <LinearLayout
-            android:id="@+id/layoutWeatherForecast"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideLineBotHorizontal">
+    <ProgressBar
+        android:id="@+id/progressBarLoadingForecasts"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textViewForecast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Прогноз"
-                style="@style/TitleText" />
-
-            <include
-                android:id="@+id/layoutWeatherForecast1"
-                layout="@layout/layout_short_weather"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <include
-                android:id="@+id/layoutWeatherForecast2"
-                layout="@layout/layout_short_weather"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <include
-                android:id="@+id/layoutWeatherForecast3"
-                layout="@layout/layout_short_weather"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <ProgressBar
-            android:id="@+id/progressBarLoadingForecasts"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,7 @@ public class Hour {
     private String hour;
     @SerializedName("hour_ts")
     @Expose
-    private int hourTs;
+    private long hourTs;
     @SerializedName("temp")
     @Expose
     private int temp;
@@ -44,11 +44,11 @@ public class Hour {
         this.hour = hour;
     }
 
-    public int getHourTs() {
+    public long getHourTs() {
         return hourTs;
     }
 
-    public void setHourTs(int hourTs) {
+    public void setHourTs(long hourTs) {
         this.hourTs = hourTs;
     }
 

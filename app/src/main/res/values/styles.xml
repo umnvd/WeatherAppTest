@@ -39,11 +39,11 @@
         <item name="android:textColor">@color/colorGray</item>
     </style>
 
-    <style name="WhiteRegularText" parent="RegularGrayText">
+    <style name="RegularWhiteText" parent="RegularGrayText">
         <item name="android:textColor">@color/colorWhite</item>
     </style>
 
-    <style name="WhiteTitleText" parent="TitleGrayText">
+    <style name="TitleWhiteText" parent="TitleGrayText">
         <item name="android:textColor">@color/colorWhite</item>
     </style>
 

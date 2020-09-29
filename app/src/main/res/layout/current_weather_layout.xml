@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="4dp"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:layout_editor_absoluteX="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageViewBackground"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/day_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutFact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="16dp"
+            android:paddingHorizontal="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/viewDelimiterLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textViewName"
+                style="@style/TitleWhiteText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="Ульяновск" />
+
+            <TextView
+                android:id="@+id/textViewCurrentDate"
+                style="@style/TitleWhiteText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_toEndOf="@id/textViewName"
+                android:text="21.09" />
+
+            <TextView
+                android:id="@+id/textViewCurrentTemp"
+                style="@style/TitleWhiteText"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:layout_below="@id/textViewName"
+                android:layout_alignParentStart="true"
+                android:layout_marginEnd="8dp"
+                android:text="+14"
+                android:textSize="54sp" />
+
+            <ImageView
+                android:id="@+id/imageViewCurrentWeatherIcon"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_below="@id/textViewName"
+                android:layout_marginEnd="8dp"
+                android:layout_toEndOf="@id/textViewCurrentTemp"
+                android:src="@drawable/weather_icon_test" />
+
+            <TextView
+                android:id="@+id/textViewCurrentCondition"
+                style="@style/RegularWhiteText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewName"
+                android:layout_marginBottom="8dp"
+                android:layout_toEndOf="@id/imageViewCurrentWeatherIcon"
+                android:text="Облачно" />
+
+            <TextView
+                android:id="@+id/textViewCurrentFeels"
+                style="@style/RegularWhiteText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewCurrentCondition"
+                android:layout_toEndOf="@id/imageViewCurrentWeatherIcon"
+                android:text="Ощущается как +7" />
+
+            <TextView
+                android:id="@+id/textViewCurrentWind"
+                style="@style/RegularWhiteText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewCurrentTemp"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="8dp"
+                android:text="Ветер 5.4  м/с, направление СЗ" />
+
+            <TextView
+                android:id="@+id/textViewCurrentHumidity"
+                style="@style/RegularWhiteText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewCurrentWind"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="8dp"
+                android:text="Влажность воздуха 80%" />
+
+            <TextView
+                android:id="@+id/textViewCurrentPressure"
+                style="@style/RegularWhiteText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewCurrentHumidity"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="16dp"
+                android:text="Давление 751 мм рт. ст." />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/viewDelimiterLine"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorGray"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewHourlyWeathers"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/relativeLayoutFact" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewHourlyWeathers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewDelimiterLine" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

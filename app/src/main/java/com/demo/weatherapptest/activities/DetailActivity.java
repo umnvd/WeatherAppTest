@@ -1,6 +1,8 @@
 package com.demo.weatherapptest.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,14 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.demo.weatherapptest.R;
+import com.demo.weatherapptest.adapters.HourlyWeatherAdapter;
 import com.demo.weatherapptest.data.City;
 import com.demo.weatherapptest.pojo.Forecast;
+import com.demo.weatherapptest.pojo.Hour;
 import com.demo.weatherapptest.pojo.Part;
 import com.demo.weatherapptest.pojo.Parts;
 import com.demo.weatherapptest.pojo.WeatherResponse;
 import com.demo.weatherapptest.utils.SvgUtils;
 import com.demo.weatherapptest.utils.WeatherUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -57,6 +62,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private void setWeatherView(WeatherResponse weatherResponse) {
         setCurrentWeather(weatherResponse);
+        setCurrentHourlyWeather(weatherResponse);
         setTomorrowWeather(weatherResponse);
         setForecasts(weatherResponse);
     }
@@ -100,6 +106,34 @@ public class DetailActivity extends AppCompatActivity {
         textViewCurrentWind.setText(wind);
         textViewCurrentHumidity.setText(humidity);
         textViewCurrentPressure.setText(pressure);
+    }
+
+    private void setCurrentHourlyWeather(WeatherResponse weatherResponse) {
+        RecyclerView recyclerViewHourlyWeathers = findViewById(R.id.recyclerViewHourlyWeathers);
+        recyclerViewHourlyWeathers.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        HourlyWeatherAdapter adapter = new HourlyWeatherAdapter();
+        recyclerViewHourlyWeathers.setAdapter(adapter);
+        recyclerViewHourlyWeathers.setHasFixedSize(true);
+
+        List<Hour> hours = getRightHours(weatherResponse);
+        adapter.setHours(hours);
+    }
+
+    private List<Hour> getRightHours(WeatherResponse weatherResponse) {
+        long nowDate = weatherResponse.getNow() + weatherResponse.getInfo().getTzinfo().getOffset();
+        List<Hour> todayHours = weatherResponse.getForecasts().get(0).getHours();
+        List<Hour> tomorrowHours = weatherResponse.getForecasts().get(1).getHours();
+        todayHours.addAll(tomorrowHours);
+        List<Hour> result = new ArrayList<>();
+        for (Hour hour : todayHours) {
+            if (result.size() == 24) {
+                break;
+            }
+            if (hour.getHourTs() >= nowDate) {
+                result.add(hour);
+            }
+        }
+        return result;
     }
 
     private void setTomorrowWeather(WeatherResponse weatherResponse) {

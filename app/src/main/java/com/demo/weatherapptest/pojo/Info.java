@@ -12,6 +12,9 @@ public class Info {
     @SerializedName("lon")
     @Expose
     private double lon;
+    @SerializedName("tzinfo")
+    @Expose
+    private Tzinfo tzinfo;
 
     public String getName() {
         return name;
@@ -37,4 +40,11 @@ public class Info {
         this.lon = lon;
     }
 
+    public Tzinfo getTzinfo() {
+        return tzinfo;
+    }
+
+    public void setTzinfo(Tzinfo tzinfo) {
+        this.tzinfo = tzinfo;
+    }
 }

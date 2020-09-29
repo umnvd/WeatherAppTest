@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewWeathers.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CitiesWeatherAdapter();
         recyclerViewWeathers.setAdapter(adapter);
+        recyclerViewWeathers.setHasFixedSize(true);
         progressBarLoadingWeathers = findViewById(R.id.progressBarLoadingWeathers);
 
         updateWeather(russianCities);
