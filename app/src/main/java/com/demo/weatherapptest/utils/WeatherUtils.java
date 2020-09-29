@@ -21,7 +21,7 @@ public class WeatherUtils {
 
     public static Single<List<WeatherResponse>> loadWeatherList(List<City> cityList) {
         return Observable.fromIterable(cityList)
-                .flatMap(city -> loadWeather(city, 2))
+                .flatMap(city -> loadWeather(city, 3))
                 .toList();
     }
 
@@ -36,7 +36,8 @@ public class WeatherUtils {
     }
 
     public static String getFormattedTemp(int temp) {
-        return (temp > 0) ? "+" + temp : "" + temp;
+        String signedTemp = (temp > 0) ? "+" + temp : "" + temp;
+        return String.format("%s\u00B0", signedTemp);
     }
 
     public static int getBackgroundResource(String dayTime) {

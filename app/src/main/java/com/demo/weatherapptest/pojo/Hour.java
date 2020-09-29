@@ -25,7 +25,7 @@ public class Hour {
     private String condition;
     @SerializedName("wind_speed")
     @Expose
-    private int windSpeed;
+    private double windSpeed;
     @SerializedName("wind_dir")
     @Expose
     private String windDir;
@@ -84,11 +84,11 @@ public class Hour {
         this.condition = condition;
     }
 
-    public int getWindSpeed() {
+    public double getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(int windSpeed) {
+    public void setWindSpeed(double windSpeed) {
         this.windSpeed = windSpeed;
     }
 

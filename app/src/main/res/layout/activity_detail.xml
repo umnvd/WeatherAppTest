@@ -152,7 +152,7 @@
 
             <TextView
                 android:id="@+id/textViewTomorrow"
-                style="@style/BlackTitleText"
+                style="@style/TitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -226,7 +226,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="Прогноз"
-                style="@style/BlackTitleText" />
+                style="@style/TitleText" />
 
             <include
                 android:id="@+id/layoutWeatherForecast1"

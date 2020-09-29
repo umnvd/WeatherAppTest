@@ -12,7 +12,7 @@
         android:layout_marginEnd="8dp"
         android:layout_gravity="center_vertical"
         android:text="23.09"
-        style="@style/BlackRegularText"/>
+        style="@style/RegularText"/>
 
     <ImageView
         android:id="@+id/imageViewShortWeatherIcon"
@@ -29,7 +29,7 @@
         android:layout_marginEnd="8dp"
         android:layout_gravity="center_vertical"
         android:text="+18"
-        style="@style/BlackRegularText"/>
+        style="@style/RegularText"/>
 
     <TextView
         android:id="@+id/textViewShortMinTemp"
@@ -37,6 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:text="+14"
-        style="@style/SmallText"/>
+        style="@style/SmallGrayText"/>
 
 </LinearLayout>

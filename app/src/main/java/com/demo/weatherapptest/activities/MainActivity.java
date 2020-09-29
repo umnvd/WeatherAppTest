@@ -12,7 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.demo.weatherapptest.R;
-import com.demo.weatherapptest.adapters.WeatherAdapter;
+import com.demo.weatherapptest.adapters.CitiesWeatherAdapter;
 import com.demo.weatherapptest.data.City;
 import com.demo.weatherapptest.pojo.WeatherResponse;
 import com.demo.weatherapptest.utils.WeatherUtils;
@@ -56,13 +56,11 @@ public class MainActivity extends AppCompatActivity {
     private CompositeDisposable disposables;
 
     private RecyclerView recyclerViewWeathers;
-    private WeatherAdapter adapter;
+    private CitiesWeatherAdapter adapter;
     private ProgressBar progressBarLoadingWeathers;
 
     private RadioGroup radioGroupWeatherIn;
     private RadioGroup radioGroupWeatherWhen;
-    private static boolean isRussia;
-    private static boolean isToday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerViewWeathers = findViewById(R.id.recyclerViewWeathers);
         recyclerViewWeathers.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new WeatherAdapter();
+        adapter = new CitiesWeatherAdapter();
         recyclerViewWeathers.setAdapter(adapter);
         progressBarLoadingWeathers = findViewById(R.id.progressBarLoadingWeathers);
 
@@ -104,6 +102,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         radioGroupWeatherWhen = findViewById(R.id.radioGroupWeatherWhen);
+        radioGroupWeatherWhen.setOnCheckedChangeListener((radioGroup, i) -> {
+            boolean isTomorrow = false;
+            switch (i) {
+                case R.id.radioToday :
+                    isTomorrow = false;
+                    break;
+                case R.id.radioTomorrow :
+                    isTomorrow = true;
+                    break;
+            }
+            adapter.setWhen(isTomorrow);
+        });
     }
 
     private void updateWeather(List<City> cities) {
@@ -116,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 )
         );
     }
-
 
     @Override
     protected void onDestroy() {

@@ -17,10 +17,13 @@ import com.demo.weatherapptest.utils.WeatherUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherResponseViewHolder> {
+public class CitiesWeatherAdapter extends RecyclerView.Adapter<CitiesWeatherAdapter.WeatherResponseViewHolder> {
 
     private List<WeatherResponse> weathers = new ArrayList<>();
     private OnWeatherClickListener onWeatherClickListener;
+
+    private int dayIndex = 0;
+    private int nightIndex = 1;
 
     public List<WeatherResponse> getWeathers() {
         return weathers;
@@ -31,6 +34,17 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherR
         notifyDataSetChanged();
     }
 
+    public void setWhen(boolean when) {
+        if (when) { // tomorrow
+            dayIndex = 1;
+            nightIndex = 2;
+        } else { // today
+            dayIndex = 0;
+            nightIndex = 1;
+        }
+        notifyDataSetChanged();
+    }
+
     public void setOnWeatherClickListener(OnWeatherClickListener onWeatherClickListener) {
         this.onWeatherClickListener = onWeatherClickListener;
     }
@@ -38,7 +52,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherR
     @NonNull
     @Override
     public WeatherResponseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.city_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.city_weather_item, parent, false);
         return new WeatherResponseViewHolder(view);
     }
 
@@ -46,14 +60,16 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherR
     public void onBindViewHolder(@NonNull WeatherResponseViewHolder holder, int position) {
         WeatherResponse response = weathers.get(position);
         String cityName = response.getInfo().getName();
-        String temp = WeatherUtils.getFormattedTemp(response.getFact().getTemp());
-        String icon = response.getFact().getIcon();
-        int backgroundResource = WeatherUtils.getBackgroundResource(response.getFact().getDaytime());
+        int dayTemp = response.getForecasts().get(dayIndex).getParts().getDay().getTempAvg();
+        String formattedDayTemp = WeatherUtils.getFormattedTemp(dayTemp);
+        int nightTemp = response.getForecasts().get(nightIndex).getParts().getNight().getTempMin();
+        String formattedNightTemp = WeatherUtils.getFormattedTemp(nightTemp);
+        String icon = response.getForecasts().get(dayIndex).getParts().getDay().getIcon();
 
         holder.textViewCityName.setText(cityName);
-        holder.textViewCityCurrentTemp.setText(temp);
+        holder.textViewCityDayTemp.setText(formattedDayTemp);
+        holder.textViewCityNightTemp.setText(formattedNightTemp);
         SvgUtils.fetchSvg(holder.imageViewCityCurrentWeatherIcon.getContext(), icon, holder.imageViewCityCurrentWeatherIcon);
-        holder.imageViewCityBackground.setImageResource(backgroundResource);
     }
 
     @Override
@@ -64,16 +80,16 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherR
     public class WeatherResponseViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewCityName;
-        private TextView textViewCityCurrentTemp;
+        private TextView textViewCityDayTemp;
+        private TextView textViewCityNightTemp;
         private ImageView imageViewCityCurrentWeatherIcon;
-        private ImageView imageViewCityBackground;
 
         public WeatherResponseViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewCityName = itemView.findViewById(R.id.textViewCityName);
-            textViewCityCurrentTemp = itemView.findViewById(R.id.textViewCityCurrentTemp);
+            textViewCityDayTemp = itemView.findViewById(R.id.textViewCityDayTemp);
+            textViewCityNightTemp = itemView.findViewById(R.id.textViewCityNightTemp);
             imageViewCityCurrentWeatherIcon = itemView.findViewById(R.id.imageViewCityCurrentWeatherIcon);
-            imageViewCityBackground = itemView.findViewById(R.id.imageViewCityBackground);
             itemView.setOnClickListener(view -> {
                 if (onWeatherClickListener != null) {
                     onWeatherClickListener.onWeatherClick(getAdapterPosition());

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="День"
-        style="@style/BlackRegularText"/>
+        style="@style/RegularText"/>
 
     <ImageView
         android:id="@+id/imageViewPartWeatherIcon"
@@ -24,13 +24,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+18"
-        style="@style/BlackRegularText"/>
+        style="@style/RegularText"/>
 
     <TextView
         android:id="@+id/textViewPartMinTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+14"
-        style="@style/SmallText"/>
+        style="@style/SmallGrayText"/>
 
 </LinearLayout>
