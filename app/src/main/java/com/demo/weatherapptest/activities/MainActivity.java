@@ -6,19 +6,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.demo.weatherapptest.R;
 import com.demo.weatherapptest.adapters.WeatherAdapter;
 import com.demo.weatherapptest.data.City;
 import com.demo.weatherapptest.pojo.WeatherResponse;
-import com.demo.weatherapptest.utils.WeatherResponseUtils;
+import com.demo.weatherapptest.utils.WeatherUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class MainActivity extends AppCompatActivity {
@@ -52,15 +53,16 @@ public class MainActivity extends AppCompatActivity {
         worldCities.add(new City("Торонто", 43.7001100, -79.4163000));
     }
 
-
-
-    private Single<List<WeatherResponse>> weatherResponses;
     private CompositeDisposable disposables;
-
-    private ProgressBar progressBar;
 
     private RecyclerView recyclerViewWeathers;
     private WeatherAdapter adapter;
+    private ProgressBar progressBarLoadingWeathers;
+
+    private RadioGroup radioGroupWeatherIn;
+    private RadioGroup radioGroupWeatherWhen;
+    private static boolean isRussia;
+    private static boolean isToday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,35 +70,51 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         disposables = new CompositeDisposable();
-        recyclerViewWeathers = findViewById(R.id.recyclerViewWeathers);
-        progressBar = findViewById(R.id.progressBar);
 
+        recyclerViewWeathers = findViewById(R.id.recyclerViewWeathers);
         recyclerViewWeathers.setLayoutManager(new LinearLayoutManager(this));
         adapter = new WeatherAdapter();
         recyclerViewWeathers.setAdapter(adapter);
+        progressBarLoadingWeathers = findViewById(R.id.progressBarLoadingWeathers);
 
-
-        weatherResponses = WeatherResponseUtils.loadWeatherList(russianCities);
-        disposables.add(weatherResponses
-                .subscribe(
-                        weatherList -> adapter.setWeathers(weatherList),
-                        throwable -> Toast.makeText(MainActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show()
-                )
-        );
+        updateWeather(russianCities);
 
         adapter.setOnWeatherClickListener(position -> {
             WeatherResponse chosenWeather = adapter.getWeathers().get(position);
-            String name = chosenWeather.getInfo().getCityName();
+            String name = chosenWeather.getInfo().getName();
             double lat = chosenWeather.getInfo().getLat();
             double lon = chosenWeather.getInfo().getLon();
             Intent intent = new Intent(MainActivity.this, DetailActivity.class);
             intent.putExtra("city", new City(name, lat, lon));
             startActivity(intent);
         });
+
+        radioGroupWeatherIn = findViewById(R.id.radioGroupWeatherIn);
+        radioGroupWeatherIn.setOnCheckedChangeListener((radioGroup, i) -> {
+            switch (i) {
+                case R.id.radioInRussia :
+                    updateWeather(russianCities);
+                    break;
+                case R.id.radioInWorld :
+                    updateWeather(worldCities);
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        radioGroupWeatherWhen = findViewById(R.id.radioGroupWeatherWhen);
     }
 
-    private void loadData() {
-
+    private void updateWeather(List<City> cities) {
+        disposables.add(WeatherUtils.loadWeatherList(cities)
+                .doOnSubscribe(__ -> progressBarLoadingWeathers.setVisibility(View.VISIBLE))
+                .doAfterTerminate(() -> progressBarLoadingWeathers.setVisibility(View.GONE))
+                .subscribe(
+                        weatherList -> adapter.setWeathers(weatherList),
+                        throwable -> Toast.makeText(MainActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show()
+                )
+        );
     }
 
 

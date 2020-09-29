@@ -7,17 +7,38 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="DefaultText">
+    <style name="TitleText">
         <item name="fontFamily">sans-serif-condensed</item>
         <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorGray</item>
     </style>
 
-    <style name="WhiteText" parent="DefaultText">
-        <item name="android:textColor">@android:color/white</item>
+    <style name="RegularText">
+        <item name="fontFamily">sans-serif-condensed</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorGray</item>
     </style>
 
-    <style name="BlackText" parent="DefaultText">
-        <item name="android:textColor">@android:color/primary_text_light</item>
+    <style name="SmallText">
+        <item name="fontFamily">sans-serif-condensed</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorGray</item>
+    </style>
+
+    <style name="WhiteTitleText" parent="TitleText">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="BlackTitleText" parent="TitleText">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="WhiteRegularText" parent="RegularText">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="BlackRegularText" parent="RegularText">
+        <item name="android:textColor">@color/colorBlack</item>
     </style>
 
 </resources>

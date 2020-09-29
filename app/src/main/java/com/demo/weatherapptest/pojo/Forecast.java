@@ -11,10 +11,13 @@ public class Forecast {
     private String date;
     @SerializedName("date_ts")
     @Expose
-    private int dateTs;
+    private long dateTs;
     @SerializedName("parts")
     @Expose
     private Parts parts;
+    @SerializedName("hours")
+    @Expose
+    private List<Hour> hours = null;
 
     public String getDate() {
         return date;
@@ -24,11 +27,11 @@ public class Forecast {
         this.date = date;
     }
 
-    public int getDateTs() {
+    public long getDateTs() {
         return dateTs;
     }
 
-    public void setDateTs(int dateTs) {
+    public void setDateTs(long dateTs) {
         this.dateTs = dateTs;
     }
 
@@ -40,4 +43,11 @@ public class Forecast {
         this.parts = parts;
     }
 
+    public List<Hour> getHours() {
+        return hours;
+    }
+
+    public void setHours(List<Hour> hours) {
+        this.hours = hours;
+    }
 }

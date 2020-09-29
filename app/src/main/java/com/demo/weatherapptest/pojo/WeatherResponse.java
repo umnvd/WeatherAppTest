@@ -8,7 +8,7 @@ public class WeatherResponse {
 
     @SerializedName("now")
     @Expose
-    private int now;
+    private long now;
     @SerializedName("now_dt")
     @Expose
     private String nowDt;
@@ -22,11 +22,11 @@ public class WeatherResponse {
     @Expose
     private List<Forecast> forecasts = null;
 
-    public int getNow() {
+    public long getNow() {
         return now;
     }
 
-    public void setNow(int now) {
+    public void setNow(long now) {
         this.now = now;
     }
 

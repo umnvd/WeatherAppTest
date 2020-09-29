@@ -11,6 +11,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/guideLineMainHorizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
@@ -26,7 +27,7 @@
             android:src="@drawable/ya_weather_logo" />
 
         <RadioGroup
-            android:id="@+id/radioWeatherIn"
+            android:id="@+id/radioGroupWeatherIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -37,26 +38,28 @@
             app:layout_constraintTop_toBottomOf="@+id/imageViewLogo">
 
             <RadioButton
+                android:id="@+id/radioInRussia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:fontFamily="sans-serif-condensed-light"
                 android:text="в России"
                 android:paddingBottom="4dp"
-                style="@style/BlackText" />
+                style="@style/BlackTitleText" />
 
             <RadioButton
+                android:id="@+id/radioInWorld"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="в мире"
                 android:paddingBottom="4dp"
-                style="@style/BlackText" />
+                style="@style/BlackTitleText" />
 
         </RadioGroup>
 
         <RadioGroup
-            android:id="@+id/radioWeatherOn"
+            android:id="@+id/radioGroupWeatherWhen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -64,28 +67,36 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioWeatherIn">
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupWeatherIn">
 
             <RadioButton
+                android:id="@+id/radioToday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="на сегодня"
                 android:paddingBottom="4dp"
-                style="@style/BlackText"/>
+                style="@style/BlackTitleText"/>
 
             <RadioButton
+                android:id="@+id/radioTomorrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="на завтра"
                 android:paddingBottom="4dp"
-                style="@style/BlackText" />
+                style="@style/BlackTitleText" />
 
         </RadioGroup>
 
-
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineMainHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.24" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewWeathers"
@@ -94,10 +105,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutFilters" />
+        app:layout_constraintTop_toBottomOf="@+id/guideLineMainHorizontal" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBarLoadingWeathers"
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"

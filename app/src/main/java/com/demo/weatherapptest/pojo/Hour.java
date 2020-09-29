@@ -3,17 +3,17 @@ package com.demo.weatherapptest.pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Part {
+public class Hour {
 
-    @SerializedName("temp_min")
+    @SerializedName("hour")
     @Expose
-    private int tempMin;
-    @SerializedName("temp_max")
+    private String hour;
+    @SerializedName("hour_ts")
     @Expose
-    private int tempMax;
-    @SerializedName("temp_avg")
+    private int hourTs;
+    @SerializedName("temp")
     @Expose
-    private int tempAvg;
+    private int temp;
     @SerializedName("feels_like")
     @Expose
     private int feelsLike;
@@ -25,7 +25,7 @@ public class Part {
     private String condition;
     @SerializedName("wind_speed")
     @Expose
-    private double windSpeed;
+    private int windSpeed;
     @SerializedName("wind_dir")
     @Expose
     private String windDir;
@@ -36,28 +36,28 @@ public class Part {
     @Expose
     private int humidity;
 
-    public int getTempMin() {
-        return tempMin;
+    public String getHour() {
+        return hour;
     }
 
-    public void setTempMin(int tempMin) {
-        this.tempMin = tempMin;
+    public void setHour(String hour) {
+        this.hour = hour;
     }
 
-    public int getTempMax() {
-        return tempMax;
+    public int getHourTs() {
+        return hourTs;
     }
 
-    public void setTempMax(int tempMax) {
-        this.tempMax = tempMax;
+    public void setHourTs(int hourTs) {
+        this.hourTs = hourTs;
     }
 
-    public int getTempAvg() {
-        return tempAvg;
+    public int getTemp() {
+        return temp;
     }
 
-    public void setTempAvg(int tempAvg) {
-        this.tempAvg = tempAvg;
+    public void setTemp(int temp) {
+        this.temp = temp;
     }
 
     public int getFeelsLike() {
@@ -84,11 +84,11 @@ public class Part {
         this.condition = condition;
     }
 
-    public double getWindSpeed() {
+    public int getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(double windSpeed) {
+    public void setWindSpeed(int windSpeed) {
         this.windSpeed = windSpeed;
     }
 

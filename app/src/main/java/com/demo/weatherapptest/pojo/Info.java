@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Info {
 
-    private String cityName;
+    private String name;
     @SerializedName("lat")
     @Expose
     private double lat;
@@ -13,12 +13,12 @@ public class Info {
     @Expose
     private double lon;
 
-    public String getCityName() {
-        return cityName;
+    public String getName() {
+        return name;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getLat() {

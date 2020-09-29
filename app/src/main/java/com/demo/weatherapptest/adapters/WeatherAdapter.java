@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.demo.weatherapptest.R;
 import com.demo.weatherapptest.pojo.WeatherResponse;
 import com.demo.weatherapptest.utils.SvgUtils;
+import com.demo.weatherapptest.utils.WeatherUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,14 +45,15 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherR
     @Override
     public void onBindViewHolder(@NonNull WeatherResponseViewHolder holder, int position) {
         WeatherResponse response = weathers.get(position);
-        String cityName = response.getInfo().getCityName();
-        int tempValue = response.getFact().getTemp();
-        String temp = tempValue < 0 ? "" + tempValue : "+" + tempValue;
+        String cityName = response.getInfo().getName();
+        String temp = WeatherUtils.getFormattedTemp(response.getFact().getTemp());
         String icon = response.getFact().getIcon();
+        int backgroundResource = WeatherUtils.getBackgroundResource(response.getFact().getDaytime());
 
-        holder.cityName.setText(cityName);
-        holder.cityCurrentTemp.setText(temp);
-        SvgUtils.fetchSvg(holder.cityCurrentWeatherIcon.getContext(), icon, holder.cityCurrentWeatherIcon);
+        holder.textViewCityName.setText(cityName);
+        holder.textViewCityCurrentTemp.setText(temp);
+        SvgUtils.fetchSvg(holder.imageViewCityCurrentWeatherIcon.getContext(), icon, holder.imageViewCityCurrentWeatherIcon);
+        holder.imageViewCityBackground.setImageResource(backgroundResource);
     }
 
     @Override
@@ -61,20 +63,23 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherR
 
     public class WeatherResponseViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView cityName;
-        private TextView cityCurrentTemp;
-        private ImageView cityCurrentWeatherIcon;
+        private TextView textViewCityName;
+        private TextView textViewCityCurrentTemp;
+        private ImageView imageViewCityCurrentWeatherIcon;
+        private ImageView imageViewCityBackground;
 
         public WeatherResponseViewHolder(@NonNull View itemView) {
             super(itemView);
-            cityName = itemView.findViewById(R.id.cityName);
-            cityCurrentTemp = itemView.findViewById(R.id.cityCurrentTemp);
-            cityCurrentWeatherIcon = itemView.findViewById(R.id.cityCurrentWeatherIcon);
+            textViewCityName = itemView.findViewById(R.id.textViewCityName);
+            textViewCityCurrentTemp = itemView.findViewById(R.id.textViewCityCurrentTemp);
+            imageViewCityCurrentWeatherIcon = itemView.findViewById(R.id.imageViewCityCurrentWeatherIcon);
+            imageViewCityBackground = itemView.findViewById(R.id.imageViewCityBackground);
             itemView.setOnClickListener(view -> {
                 if (onWeatherClickListener != null) {
                     onWeatherClickListener.onWeatherClick(getAdapterPosition());
                 }
             });
+
         }
     }
 
