@@ -52,7 +52,7 @@ public class CitiesWeatherAdapter extends RecyclerView.Adapter<CitiesWeatherAdap
     @NonNull
     @Override
     public WeatherResponseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.city_weather_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_city_weather, parent, false);
         return new WeatherResponseViewHolder(view);
     }
 

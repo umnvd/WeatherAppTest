@@ -29,7 +29,7 @@ public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdap
     @NonNull
     @Override
     public HourlyWeatherViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.hour_weather_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hour_weather, parent, false);
         return new HourlyWeatherViewHolder(view);
     }
 
@@ -55,9 +55,9 @@ public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdap
 
     public class HourlyWeatherViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewHourTitle;
-        ImageView imageViewHourWeatherIcon;
-        TextView textViewHourTemp;
+        private TextView textViewHourTitle;
+        private ImageView imageViewHourWeatherIcon;
+        private TextView textViewHourTemp;
 
         public HourlyWeatherViewHolder(@NonNull View itemView) {
             super(itemView);
